@@ -15,6 +15,17 @@ import matplotlib.pyplot as plt
 #from ipywidgets import HBox, Label
 import streamlit as st
 
+
+ICEV_cost = st.sidebar.slider('ICEV cost', 10000, 50000, 20000 )
+ICEV_downpayment = st.sidebar.slider('ICEV downpayment', 1000, 20000,5000)
+ICEV_loan_interest_rate = st.sidebar.slider('ICEV Loan Interest Rate, %',1, 10,5)
+ICEV_loan_term = st.sidebar.slider('ICEV Loan Term (in years)', 3, 6, 4 )
+EV_cost = st.sidebar.slider('ÊV cost', 10000, 50000, 30000)
+EV_downpayment = st.sidebar.slider('EV downpayment', 1000, 20000, 7000)
+EV_loan_interest_rate = st.sidebar.slider('EV Loan Interest Rate, %', 1, 10,5)
+EV_loan_term = st.sidebar.slider('EV Loan Term (in years)', 1, 6, 4)
+#electric_cost = st.sidebar.slider('Electricity cost, US$/kWh', 0.1, 0.5, 0.05)
+                  
 cost_per_kW= st.sidebar.slider("Cost per kW [US$]",500, 2000,1000)
 interest_rate=st.sidebar.slider("Interest rate [%]",1, 10, 5)
 loan_term= st.sidebar.slider("PV Loan term [years]",5, 30, 10)
@@ -36,20 +47,6 @@ value_of_electricity_lifetime = value_of_electricity_per_year * ((1+discount_rat
 p_a = ((1+discount_rate) ** system_lifetime -1)/(discount_rate * (1+discount_rate) ** system_lifetime)
 cost_of_system = cost_per_kW * system_size + (1/p_a)
 yearly_electricity_generated = system_size * efficiency 
-
-
-
-ICEV_cost = st.sidebar.slider('ICEV cost', 10000, 50000, 20000 )
-ICEV_downpayment = st.sidebar.slider('ICEV downpayment', 1000, 20000,5000)
-ICEV_loan_interest_rate = st.sidebar.slider('ICEV Loan Interest Rate, %',1, 10,5)
-ICEV_loan_term = st.sidebar.slider('ICEV Loan Term (in years)', 3, 6, 4 )
-EV_cost = st.sidebar.slider('ÊV cost', 10000, 50000, 30000)
-EV_downpayment = st.sidebar.slider('EV downpayment', 1000, 20000, 7000)
-EV_loan_interest_rate = st.sidebar.slider('EV Loan Interest Rate, %', 1, 10,5)
-EV_loan_term = st.sidebar.slider('EV Loan Term (in years)', 1, 6, 4)
-#electric_cost = st.sidebar.slider('Electricity cost, US$/kWh', 0.1, 0.5, 0.05)
-                  
-
 
 #def EV(ICEV_cost,ICEV_downpayment, ICEV_loan_interest_rate, ICEV_loan_term, EV_cost,EV_downpayment, EV_loan_interest_rate,EV_loan_term, electric_cost):
 ICEV_loan_interest_rate = ICEV_loan_interest_rate/100
