@@ -6,13 +6,13 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 import matplotlib.colors as mcolors
-import seaborn as sns
+#import seaborn as sns
 import matplotlib.pyplot as plt
-from ipywidgets import FloatSlider
-from ipywidgets import IntSlider
-from ipywidgets import interact
-import ipywidgets as widgets
-from ipywidgets import HBox, Label
+#from ipywidgets import FloatSlider
+#from ipywidgets import IntSlider
+#from ipywidgets import interact
+#import ipywidgets as widgets
+#from ipywidgets import HBox, Label
 import streamlit as st
 
 cost_per_kW= st.sidebar.slider("Cost per kW [US$]",500, 2000,1000)
