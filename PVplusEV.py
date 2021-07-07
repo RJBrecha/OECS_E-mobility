@@ -20,7 +20,7 @@ interest_rate=st.sidebar.slider("Interest rate [%]",1, 10, 5)
 loan_term= st.sidebar.slider("PV Loan term [years]",5, 30, 10)
 electric_cost = st.sidebar.slider("Electricity cost [US$/kWh]", 0.1, 0.5, 0.35)
 system_size = st.sidebar.slider('System size [kW]', 1.0,10.0,3.0)
-efficiency = st.sidebar.slider('Efficiency [kWh/kW$_p$/year]',1000, 2000, 1500)
+efficiency = st.sidebar.slider('Efficiency [kWh/kW_p/year]',1000, 2000, 1500)
 yearly_residential_electricity_consumption = st.sidebar.slider('Residential Electricity consumption [kWh/year]', 1000, 10000, 2500)
 
 
@@ -80,6 +80,8 @@ yearly_home_elec_cost_with_PV = (yearly_residential_electricity_consumption + mo
  
 
 "Summary - Yearly costs for ICEV + home electricity"  
+"Left-hand bars are for a household with an ICEV and purchased electricity"
+"Right-hand bars for a household with an EV and a PV system"
 
 ICEV_plus_home_elec = []
 EV_plus_PV_plus_home_elec = []
@@ -151,7 +153,7 @@ ax.bar(X + offset/2, PV_pmt, color = 'magenta', bottom = Home_elec_with_PV, widt
 ax.bar(X + offset/2, EV_pmt, color = 'gold', bottom = [sum(i) for i in zip(Home_elec_with_PV, PV_pmt)],width = offset)
 ax.bar(X + offset/2, EV_maint, color = 'lime', bottom = [sum(i) for i in zip(Home_elec_with_PV, PV_pmt, EV_pmt)], width = offset)
 ax.bar(X + offset/2, EV_fuel, color = 'aqua', bottom = [sum(i) for i in zip(Home_elec_with_PV, PV_pmt, EV_pmt, EV_maint)],width = offset)
-ax.legend(labels = ('Home elec', 'ICEV pmt', 'ICEV maint', 'ICEV fuel','Home elec (PV)','PV pmt', 'EV pmt', 'EV maint', 'EV fuel'),loc=1)
+ax.legend(labels = ('Home elec', 'ICEV pmt', 'ICEV maint', 'ICEV fuel','Home elec (PV)','PV system pmt', 'EV pmt', 'EV maint', 'EV fuel'),loc=1)
 ax.set_title("Transport and Household")
 ax.set_xlabel('Year', size=12)
 ax.set_ylabel('Yearly cost [USD/year]', size=12)
