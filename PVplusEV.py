@@ -167,7 +167,7 @@ ax.bar(X + offset/2, EV_pmt, color = 'gold', bottom = [sum(i) for i in zip(Home_
 ax.bar(X + offset/2, EV_maint, color = 'lime', bottom = [sum(i) for i in zip(Home_elec_with_PV, PV_pmt, EV_pmt)], width = offset)
 ax.bar(X + offset/2, EV_fuel, color = 'aqua', bottom = [sum(i) for i in zip(Home_elec_with_PV, PV_pmt, EV_pmt, EV_maint)],width = offset)
 ax.legend(labels = ('Home elec', 'ICEV pmt', 'ICEV maint', 'ICEV fuel','Home elec (PV)','PV system pmt', 'EV pmt', 'EV maint', 'EV fuel'),loc=1)
-ax.set_title("Transport and Household")
+ax.set_title("Yearly Transport and Household Electricity Costs")
 ax.set_xlabel('Year', size=12)
 ax.set_ylabel('Yearly cost [USD/year]', size=12)
 #chart_data = pd.DataFrame(years,[EV_total, ICEV_total])    
