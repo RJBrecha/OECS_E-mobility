@@ -16,19 +16,19 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 
-ICEV_cost = st.sidebar.slider('ICEV cost', 10000, 50000, 20000 )
-ICEV_downpayment = st.sidebar.slider('ICEV downpayment', 1000, 20000,5000)
+ICEV_cost = st.sidebar.slider('ICEV cost [US$]', 10000, 50000, 20000 )
+ICEV_downpayment = st.sidebar.slider('ICEV downpayment [US$]', 1000, 20000,5000)
 ICEV_loan_interest_rate = st.sidebar.slider('ICEV Loan Interest Rate, %',1, 10,5)
 ICEV_loan_term = st.sidebar.slider('ICEV Loan Term (in years)', 3, 6, 4 )
-EV_cost = st.sidebar.slider('ÊV cost', 10000, 50000, 30000)
-EV_downpayment = st.sidebar.slider('EV downpayment', 1000, 20000, 7000)
+EV_cost = st.sidebar.slider('ÊV cost [US$]', 10000, 50000, 30000)
+EV_downpayment = st.sidebar.slider('EV downpayment [US$]', 1000, 20000, 10000)
 EV_loan_interest_rate = st.sidebar.slider('EV Loan Interest Rate, %', 1, 10,5)
 EV_loan_term = st.sidebar.slider('EV Loan Term (in years)', 1, 6, 4)
 #electric_cost = st.sidebar.slider('Electricity cost, US$/kWh', 0.1, 0.5, 0.05)
                   
 cost_per_kW= st.sidebar.slider("Cost per kW [US$]",500, 2000,1000)
 interest_rate=st.sidebar.slider("Interest rate [%]",1, 10, 5)
-loan_term= st.sidebar.slider("PV Loan term [years]",5, 30, 10)
+PV_loan_term= st.sidebar.slider("PV Loan term [years]",5, 30, 10)
 electric_cost = st.sidebar.slider("Electricity cost [US$/kWh]", 0.1, 0.5, 0.35)
 system_size = st.sidebar.slider('System size [kW]', 1.0,10.0,3.0)
 efficiency = st.sidebar.slider('Efficiency [kWh/kW_p/year]',1000, 2000, 1500)
@@ -38,9 +38,9 @@ yearly_residential_electricity_consumption = st.sidebar.slider('Residential Elec
 #def pv(cost_per_kW, interest_rate, loan_term, electric_cost, system_size, efficiency,yearly_residential_electricity_consumption):
 interest_rate = interest_rate/100
 discount_rate = 0.1
-PV_yearly_payment = (cost_per_kW * system_size * interest_rate)/(1-(1+interest_rate)**(-loan_term))
+PV_yearly_payment = (cost_per_kW * system_size * interest_rate)/(1-(1+interest_rate)**(-PV_loan_term))
 PV_monthly_payment = PV_yearly_payment/12
-total_payment = PV_yearly_payment*loan_term
+total_payment = PV_yearly_payment*PV_loan_term
 value_of_electricity_per_year = system_size * efficiency * electric_cost
 system_lifetime = 25
 value_of_electricity_lifetime = value_of_electricity_per_year * ((1+discount_rate)**system_lifetime - 1)/(discount_rate * (1+ discount_rate) ** system_lifetime)
@@ -116,19 +116,35 @@ for i in years:
 
 for i in years:
     if i <= EV_loan_term:
-        EV_plus_PV_plus_home_elec.append(yearly_home_elec_cost_with_PV + PV_yearly_payment + yearly_EV_cost_with_loan)
-        EV_pmt.append(yearly_EV_payments)
-        EV_maint.append(monthly_cost_EV_maintenance*12)
-        EV_fuel.append(monthly_cost_EV_fuel*12)
-        Home_elec_with_PV.append(yearly_home_elec_cost_with_PV)
-        PV_pmt.append(PV_yearly_payment)
+        if i <= PV_loan_term:
+            EV_plus_PV_plus_home_elec.append(yearly_home_elec_cost_with_PV + PV_yearly_payment + yearly_EV_cost_with_loan)
+            EV_pmt.append(yearly_EV_payments)
+            EV_maint.append(monthly_cost_EV_maintenance*12)
+            EV_fuel.append(monthly_cost_EV_fuel*12)
+            Home_elec_with_PV.append(yearly_home_elec_cost_with_PV)
+            PV_pmt.append(PV_yearly_payment)
+        else:
+            EV_plus_PV_plus_home_elec.append(yearly_home_elec_cost_with_PV + PV_yearly_payment + yearly_EV_cost_with_loan)
+            EV_pmt.append(yearly_EV_payments)
+            EV_maint.append(monthly_cost_EV_maintenance*12)
+            EV_fuel.append(monthly_cost_EV_fuel*12)
+            Home_elec_with_PV.append(yearly_home_elec_cost_with_PV)
+            PV_pmt.append(0)
     else:
-        EV_plus_PV_plus_home_elec.append(yearly_home_elec_cost_with_PV + PV_yearly_payment + yearly_EV_cost_without_loan)
-        EV_pmt.append(0)
-        EV_maint.append(monthly_cost_EV_maintenance*12)
-        EV_fuel.append(monthly_cost_EV_fuel*12)
-        Home_elec_with_PV.append(yearly_home_elec_cost_with_PV)
-        PV_pmt.append(PV_yearly_payment)
+        if i <= PV_loan_term:
+            EV_plus_PV_plus_home_elec.append(yearly_home_elec_cost_with_PV + PV_yearly_payment + yearly_EV_cost_with_loan)
+            EV_pmt.append(0)
+            EV_maint.append(monthly_cost_EV_maintenance*12)
+            EV_fuel.append(monthly_cost_EV_fuel*12)
+            Home_elec_with_PV.append(yearly_home_elec_cost_with_PV)
+            PV_pmt.append(PV_yearly_payment)
+        else:
+            EV_plus_PV_plus_home_elec.append(yearly_home_elec_cost_with_PV + PV_yearly_payment + yearly_EV_cost_with_loan)
+            EV_pmt.append(0)
+            EV_maint.append(monthly_cost_EV_maintenance*12)
+            EV_fuel.append(monthly_cost_EV_fuel*12)
+            Home_elec_with_PV.append(yearly_home_elec_cost_with_PV)
+            PV_pmt.append(0)
 #EV_plus_PV_plus_home_elec
 if yearly_electricity_generated > yearly_residential_electricity_consumption + monthly_electricity_EV*12:
     "Warning: PV system size too large for your electricity needs.  Choose a smaller capacity"
