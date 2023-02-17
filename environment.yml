@@ -1,7 +1,7 @@
 name: Emobility
 dependencies:
-- matplotlib
-- numpy
-- pandas
+- matplotlib=3.5.1
+- numpy=1.21.5
+- pandas=1.4.2
 - openpyxl
-- scipy
+- scipy=1.7.3
