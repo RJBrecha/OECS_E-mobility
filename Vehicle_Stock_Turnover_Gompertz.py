@@ -57,23 +57,14 @@ projected_vehicle_stocks = y*population_projected
 #projected_vehicle_stocks.round(decimals=0)
 
 
-# In[6]:
-
-
-#style={'description_width':'initial'}
-#@widgets.interact(EV_sales_fraction_2030= FloatSlider(min=0, max=1,step=0.1,continuous_update=False, description ='EV sales fraction 2030',style =style), 
-#                  EV_sales_fraction_2040=FloatSlider(min=0, max=1,step=0.1,continuous_update=False, description ='EV sales fraction 2040',style=style),
-#                  EV_sales_fraction_2050=FloatSlider(min=0, max=1,step=0.1,continuous_update=False,description ='EV sales fraction 2050', style=style),
-#                  sales_oldest_vintage= IntSlider(min=5, max=10,step=1,continuous_update=False, description ='Oldest Vintage sales (in years)', style=style))
-
 # Interactive Streamlit elements, like these sliders, return their value.
 # This gives you an extremely simple interaction model.
-EV_sales_fraction_2030 = st.sidebar.slider("EV sales fraction in 2030", 0.0, 1.0, .5)
-EV_sales_fraction_2040 = st.sidebar.slider("EV sales fraction in 2040", 0.0, 1.0, .75)
-EV_sales_fraction_2050 = st.sidebar.slider("EV sales fraction in 2050", 0.0, 1.0, 0.99)
+EV_sales_fraction_2030 = st.sidebar.slider("EV sales fraction in 2030", 0.0, 1.0, .1)
+EV_sales_fraction_2040 = st.sidebar.slider("EV sales fraction in 2040", 0.0, 1.0, .15)
+EV_sales_fraction_2050 = st.sidebar.slider("EV sales fraction in 2050", 0.0, 1.0, 0.2)
 #EV_sales_fraction_2030 = 0.1
-#EV_sales_fraction_2040 = 0.2
-#EV_sales_fraction_2050 = 0.3
+#EV_sales_fraction_2040 = 0.15
+#EV_sales_fraction_2050 = 0.2
 sales_oldest_vintage=5
 
 #def plot(EV_sales_fraction_2030,EV_sales_fraction_2040, EV_sales_fraction_2050, sales_oldest_vintage):
