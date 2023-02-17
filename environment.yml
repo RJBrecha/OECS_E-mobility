@@ -1,7 +1,0 @@
-name: Emobility
-dependencies:
-- matplotlib=3.5.1
-- numpy
-- pandas
-- openpyxl
-- scipy
