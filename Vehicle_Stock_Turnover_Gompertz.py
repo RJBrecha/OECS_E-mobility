@@ -9,8 +9,8 @@ from matplotlib import pyplot as plt
 
 import streamlit as st
 
-from importlib.metadata import version
-version('numpy')
+#from importlib.metadata import version
+#version('numpy')
 
 
 #Read in the data on starting vintages "years old, from 0-40", your survival rate function, initial distribution of vehicle vintages
