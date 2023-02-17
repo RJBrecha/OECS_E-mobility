@@ -1,32 +1,23 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
 
-
-#from bokeh.layouts import column
-#from bokeh.models import CustomJS, ColumnDataSource, Slider
-#from bokeh.plotting import figure, output_file, show
 import numpy as np
 from scipy.ndimage.interpolation import shift
 import pandas as pd
 from matplotlib import pyplot as plt
-#import altair as alt
-#import seaborn as sns
-#import matplotlib.pyplot as plt
-#from ipywidgets import FloatSlider
-#from ipywidgets import IntSlider
-#from ipywidgets import interact
-#import ipywidgets as widgets
-#import nbinteract as nbi
-#from ipywidgets import HBox, Label
+
 import streamlit as st
+
+from importlib.metadata import version
+version('numpy')
 
 
 #Read in the data on starting vintages "years old, from 0-40", your survival rate function, initial distribution of vehicle vintages
 df = pd.read_excel("Turnover logic spreadsheet.xlsx",sheet_name = ['Python_input_data'])
 df.keys()
-vintage = np.array(df['Python_input_data'].Vintage)
+#vintage = np.array(df['Python_input_data'].Vintage)
+Vintage = np.linspace(0, 40, 41).astype(int)
 survival = np.array(df['Python_input_data'].Survival_rate)
 vehicle_distribution = np.array(df['Python_input_data'].Initial_distribution)
 #print("Total number of vehicles",vehicle_distribution.sum())
@@ -77,9 +68,9 @@ projected_vehicle_stocks = y*population_projected
 
 # Interactive Streamlit elements, like these sliders, return their value.
 # This gives you an extremely simple interaction model.
-EV_sales_fraction_2030 = st.sidebar.slider("EV sales fraction in 2030", 0.0, 1.0, .1)
-EV_sales_fraction_2040 = st.sidebar.slider("EV sales fraction in 2040", 0.0, 1.0, .15)
-EV_sales_fraction_2050 = st.sidebar.slider("EV sales fraction in 2050", 0.0, 1.0, .2)
+EV_sales_fraction_2030 = st.sidebar.slider("EV sales fraction in 2030", 0.0, 1.0, .5)
+EV_sales_fraction_2040 = st.sidebar.slider("EV sales fraction in 2040", 0.0, 1.0, .75)
+EV_sales_fraction_2050 = st.sidebar.slider("EV sales fraction in 2050", 0.0, 1.0, 0.99)
 #EV_sales_fraction_2030 = 0.1
 #EV_sales_fraction_2040 = 0.2
 #EV_sales_fraction_2050 = 0.3
@@ -166,13 +157,7 @@ st.pyplot(fig)
 # rerun.
 #st.button("Re-run")
 
-# In[ ]:
 
-
-
-
-
-# In[ ]:
 
 
 
